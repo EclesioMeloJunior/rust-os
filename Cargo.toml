@@ -1,0 +1,22 @@
+[package]
+authors = ["Eclésio Melo <emelo@mcontigo.com>"]
+edition = "2018"
+name = "rustos"
+version = "0.1.0"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+bootloader = "0.9.8"
+spin = "0.5.2"
+volatile = "0.2.6"
+
+[dependencies.lazy_static]
+features = ["spin_no_std"]
+version = "1.0"
+
+[profile.dev]
+panic = "abort"
+
+[profile.release]
+panic = "abort"
