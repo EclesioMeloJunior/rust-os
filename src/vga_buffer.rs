@@ -130,3 +130,14 @@ pub fn _print(args: fmt::Arguments) {
     use core::fmt::Write;
     WRITER.lock().write_fmt(args).unwrap();
 }
+
+#[test_case]
+fn test_vga_println() {
+    let s = "Some string to be printed on the screen";
+    println!("{}", s);
+
+    for (i, c) in s.chars().enumerate() {
+        let char_on_screen = WRITER.lock().buffer.chars[BUFFER_HEIGHT - 2][i].read();
+        assert_eq!(char::from(char_on_screen.ascii_character), c)
+    }
+}

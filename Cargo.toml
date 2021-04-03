@@ -1,22 +1,29 @@
 [package]
-authors = ["Eclésio Melo <emelo@mcontigo.com>"]
+authors = ["Eclésio Melo <eclesiomelo.1@gmail.com>"]
 edition = "2018"
 name = "rustos"
 version = "0.1.0"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
 bootloader = "0.9.8"
 spin = "0.5.2"
 volatile = "0.2.6"
+x86_64 = "0.13.2"
+uart_16550 = "0.2.0"
 
 [dependencies.lazy_static]
 features = ["spin_no_std"]
 version = "1.0"
 
-[profile.dev]
-panic = "abort"
-
-[profile.release]
-panic = "abort"
+[package.metadata.bootimage]
+run-command = ["qemu-system-x86_64", "-drive", "format=raw,file={}"]
+run-args = [
+    "-L", "D:\\Program Files\\qemu"
+]
+test-args = [
+    "-device", "isa-debug-exit,iobase=0xf4,iosize=0x04", 
+    "-serial", "stdio",
+    "-display", "none",
+    "-L", "D:\\Program Files\\qemu",
+]
+test-success-exit-code = 33
